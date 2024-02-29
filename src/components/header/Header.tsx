@@ -1,9 +1,10 @@
-import { HeaderWrapper, Logo } from "./styles";
+import { Logo } from "../../assets";
+import { HeaderWrapper, LogoImg } from "./styles";
 
 function Header() {
   return (
     <HeaderWrapper>
-      <Logo>Zuzu</Logo>
+      <LogoImg src={Logo} />
     </HeaderWrapper>
   );
 }
