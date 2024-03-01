@@ -9,7 +9,6 @@ export const StyledLink = styled(Link)`
 export const NavbarWrapper = styled.div`
   font-family: helvetica;
   margin-left: 40px;
-  position: fixed;
 `;
 
 export const NavbarHome = styled.h3`
