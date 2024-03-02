@@ -15,6 +15,7 @@ export const NavbarHome = styled.h3`
   font-weight: bold;
   margin-top: -20px;
   color: rgba(38, 74, 60, 100);
+  width: 200px;
 `;
 
 export const NavbarHistory = styled.h3`

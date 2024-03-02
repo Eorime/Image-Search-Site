@@ -14,17 +14,3 @@ export const Input = styled.input`
     outline: none;
   }
 `;
-
-export const Picture = styled.img`
-  border-radius: 4px;
-  width: 200px;
-  height: 200px;
-`;
-
-export const PictureContainer = styled.div`
-  display: inline-block;
-  margin: 30px;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-`;

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Header from "../../components/header/Header";
 import useFetch from "../../hooks/useFetch";
 import { Input, InputWrapper, Picture, PictureContainer } from "./styles";
+import PictureModal from "../../components/pictureModal/PictureModal";
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -18,6 +19,7 @@ const Home = () => {
   console.log(data);
   return (
     <div>
+      <PictureModal id="modalWindow" />
       <InputWrapper>
         <Input
           type="text"
