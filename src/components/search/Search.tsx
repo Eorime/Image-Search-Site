@@ -7,6 +7,4 @@ function Search() {
 }
 
 export default Search;
-// ` https://api.unsplash.com/search/photos?page=1&query=office&client_id=ciD3qZfhxfqYHKizFKhpM81EU4HOo4czYFqX-3Vlr0Y`;
-
 export {};

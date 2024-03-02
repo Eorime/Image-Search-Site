@@ -24,7 +24,7 @@ function PictureModal(props: { id: string }) {
     `https://api.unsplash.com/photos/${id}/statistics?client_id=ciD3qZfhxfqYHKizFKhpM81EU4HOo4czYFqX-3Vlr0Y`
   );
 
-  console.log(id);
+  console.log("data", data);
   const openModal = () => {
     setModalOpen(true);
   };
@@ -37,7 +37,7 @@ function PictureModal(props: { id: string }) {
     <div>
       <button onClick={openModal}>Click to open</button>
       <Modal isOpen={modalOpen} close={closeModal}>
-        {/* <p>{data && data.downloads.total}</p> */}
+        {/* <p>{data && data?.downloasds?.total}</p> */}
         <button onClick={closeModal}>chaxure</button>
       </Modal>
     </div>
