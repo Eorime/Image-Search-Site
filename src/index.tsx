@@ -5,6 +5,7 @@ import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 import Header from "./components/header/Header";
 import Navbar from "./components/navbar/Navbar";
+import { SearchTermProvider } from "./searchTerm";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -13,6 +14,8 @@ root.render(
   <Router>
     <Header />
     <Navbar />
-    <App />
+    <SearchTermProvider>
+      <App />
+    </SearchTermProvider>
   </Router>
 );

@@ -1,47 +1,51 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "../modal/Modal";
-import useFetch from "../../hooks/useFetch";
+import {
+  ModalContainer,
+  ModalImage,
+  ModalCloseButton,
+  ModalImageContainer,
+} from "./style";
 
-interface PictureStatistics {
-  downloads: {
-    total: number;
-    historical: any;
-  };
-  views: {
-    total: number;
-    historical: any;
-  };
-  likes: {
-    total: number;
-    historical: any;
-  };
-}
+const PictureModal = ({ id, picture, onClose }: any) => {
+  const [pictureData, setPictureData] = useState<any>({});
 
-function PictureModal(props: { id: string }) {
-  const { id } = props;
-  const [modalOpen, setModalOpen] = useState(false);
-  const [data, loading, error] = useFetch(
-    `https://api.unsplash.com/photos/${id}/statistics?client_id=ciD3qZfhxfqYHKizFKhpM81EU4HOo4czYFqX-3Vlr0Y`
-  );
+  console.log(picture, id);
+  useEffect(() => {
+    fetch(`https://api.unsplash.com/photos/${picture?.id}/statistics?client_id=ciD3qZfhxfqYHKizFKhpM81EU4HOo4czYFqX-3Vlr0Y
+    `)
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .then((data) => {
+        setPictureData(data);
+      });
+  }, [picture]);
 
-  console.log("data", data);
-  const openModal = () => {
-    setModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalOpen(false);
-  };
+  console.log(pictureData);
 
   return (
-    <div>
-      <button onClick={openModal}>Click to open</button>
-      <Modal isOpen={modalOpen} close={closeModal}>
-        {/* <p>{data && data?.downloasds?.total}</p> */}
-        <button onClick={closeModal}>chaxure</button>
-      </Modal>
+    <div id={id} className="modal">
+      <ModalContainer>
+        <ModalCloseButton className="close" onClick={onClose}>
+          Close
+        </ModalCloseButton>
+        {picture && (
+          <ModalImageContainer>
+            <ModalImage
+              src={picture.urls.regular}
+              alt={picture.alt_description}
+            />
+            <p>Likes: {pictureData?.likes?.total}</p>
+            <p>Downloads: {pictureData?.downloads?.total}</p>
+            <p>Views: {pictureData?.views?.total}</p>
+          </ModalImageContainer>
+        )}
+      </ModalContainer>
     </div>
   );
-}
+};
 
 export default PictureModal;

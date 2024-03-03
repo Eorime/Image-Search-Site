@@ -6,9 +6,11 @@ import PictureModal from "../../components/pictureModal/PictureModal";
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [searchedPictures, setSearchedPictures] = useState<any>([]);
   const [data, loading, error] = useFetch(
     "https://api.unsplash.com/photos/?client_id=ciD3qZfhxfqYHKizFKhpM81EU4HOo4czYFqX-3Vlr0Y&page=1&per_page=20"
   );
+  const [selectedPicture, setSelectedPicture] = useState<any>(null);
 
   let typingTimeout: string | number | NodeJS.Timeout | undefined;
 
@@ -17,7 +19,11 @@ const Home = () => {
 
     typingTimeout = setTimeout(() => {
       setSearchTerm(event.target.value);
-    }, 2000);
+    }, 1500);
+  };
+
+  const handlePictureClick = (picture: any) => {
+    setSelectedPicture(picture);
   };
 
   useEffect(() => {
@@ -33,37 +39,52 @@ const Home = () => {
         })
         .then((data) => {
           console.log(data);
+          setSearchedPictures(data.results);
         })
         .catch((err) => {
           console.log(err);
         });
+    } else {
+      setSearchedPictures([]);
     }
   }, [searchTerm]);
 
-  const dataArray = Array.isArray(data) ? data : [];
-  console.log("searchterm", searchTerm);
+  useEffect(() => {
+    if (selectedPicture) {
+      document.getElementById("modalWindow")?.setAttribute("open", "true");
+    } else {
+      document.getElementById("modalWindow")?.removeAttribute("open");
+    }
+  }, [selectedPicture]);
 
-  const filteredPictures = dataArray.filter((picture) =>
-    picture.slug.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  console.log(data);
+  console.log("data", data);
   return (
     <div>
-      <PictureModal id="modalWindow" />
+      <PictureModal id="modalWindow" picture={selectedPicture} />
       <InputWrapper>
         <Input type="text" placeholder="ძებნა" onChange={handleSearch}></Input>
       </InputWrapper>
-      {filteredPictures.map((picture) => (
-        <PictureContainer>
-          <Picture
-            key={picture.id}
-            src={picture.urls.regular}
-            alt={picture.slug}
-            // onClick={}
-          />
-        </PictureContainer>
-      ))}
+      {searchedPictures && searchedPictures?.length === 0
+        ? data?.map((picture: any) => (
+            <PictureContainer>
+              <Picture
+                key={picture.id}
+                src={picture.urls.regular}
+                alt={picture.slug}
+                onClick={() => handlePictureClick(picture)}
+              />
+            </PictureContainer>
+          ))
+        : searchedPictures?.map((picture: any) => (
+            <PictureContainer>
+              <Picture
+                key={picture.id}
+                src={picture.urls.regular}
+                alt={picture.slug}
+                onClick={() => handlePictureClick(picture)}
+              />
+            </PictureContainer>
+          ))}
     </div>
   );
 };
