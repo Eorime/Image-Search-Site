@@ -34,15 +34,16 @@ const History = () => {
 
   return (
     <div>
+      {isModalOpen && (
+        <PictureModal
+          id="modalWindow"
+          picture={selectedPicture}
+          onClose={handleCloseModal}
+        />
+      )}
       <HistoryContainer>
         <h2>ისტორია</h2>
-        {isModalOpen && (
-          <PictureModal
-            id="modalWindow"
-            picture={selectedPicture}
-            onClose={handleCloseModal}
-          />
-        )}
+
         {searchTerms.map((term, index) => (
           <HistoryItem key={index} onClick={() => handleTermClick(term)}>
             {term}

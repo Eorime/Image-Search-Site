@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import { Input, InputWrapper, Picture, PictureContainer } from "./styles";
 import PictureModal from "../../components/pictureModal/PictureModal";
@@ -53,30 +53,23 @@ const Home = () => {
     }
   }, [searchTerm]);
 
-  useEffect(() => {
-    if (selectedPicture) {
-      document.getElementById("modalWindow")?.setAttribute("open", "true");
-    } else {
-      document.getElementById("modalWindow")?.removeAttribute("open");
-    }
-  }, [selectedPicture]);
-
   console.log("searchTerms", searchTerms);
   return (
     <div>
-      <PictureModal
-        id="modalWindow"
-        picture={selectedPicture}
-        onClose={handleCloseModal}
-      />
+      {selectedPicture && (
+        <PictureModal
+          id="modalWindow"
+          picture={selectedPicture}
+          onClose={handleCloseModal}
+        />
+      )}
       <InputWrapper>
-        <Input type="text" placeholder="ძებნა" onChange={handleSearch}></Input>
+        <Input type="text" placeholder="ძებნა" onChange={handleSearch} />
       </InputWrapper>
-      {searchedPictures && searchedPictures?.length === 0
+      {searchedPictures && searchedPictures.length === 0
         ? data?.map((picture: any) => (
-            <PictureContainer>
+            <PictureContainer key={picture.id}>
               <Picture
-                key={picture.id}
                 src={picture.urls.regular}
                 alt={picture.slug}
                 onClick={() => handlePictureClick(picture)}
@@ -84,9 +77,8 @@ const Home = () => {
             </PictureContainer>
           ))
         : searchedPictures?.map((picture: any) => (
-            <PictureContainer>
+            <PictureContainer key={picture.id}>
               <Picture
-                key={picture.id}
                 src={picture.urls.regular}
                 alt={picture.slug}
                 onClick={() => handlePictureClick(picture)}

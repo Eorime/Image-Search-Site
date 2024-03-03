@@ -10,6 +10,7 @@ export const HistoryItem = styled.button`
   border: none;
   font-size: 16px;
   font-weight: bold;
+  background-color: rgba(220, 241, 225, 0.74);
 
   &: hover {
     cursor: pointer;
