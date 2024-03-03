@@ -1,5 +1,17 @@
 import styled from "styled-components";
 
-const SearchTermList = styled.ul``;
+export const HistoryContainer = styled.div`
+  color: rgba(38, 74, 60, 100);
+  text-align: center;
+`;
 
-const SearchTermListItem = styled.li``;
+export const HistoryItem = styled.button`
+  color: rgba(38, 74, 60, 0.74);
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+
+  &: hover {
+    cursor: pointer;
+  }
+`;

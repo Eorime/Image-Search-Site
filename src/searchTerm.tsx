@@ -27,7 +27,10 @@ export const SearchTermProvider: React.FC<SearchTermProviderProps> = ({
   const [searchTerms, setSearchTerms] = useState<string[]>([]);
 
   const addSearchTerm = (term: string) => {
-    setSearchTerms((prevTerms) => [...prevTerms, term]);
+    const trimmedTerm = term.trim();
+    if (trimmedTerm !== "" && !searchTerms.includes(trimmedTerm)) {
+      setSearchTerms((prevTerms) => [...prevTerms, trimmedTerm]);
+    }
   };
 
   const value: SearchTermContextType = {
