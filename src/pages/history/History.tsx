@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { useSearchTerms } from "../../searchTerm";
 import { HistoryContainer, HistoryItem } from "./styles";
 import PictureModal from "../../components/pictureModal/PictureModal";
@@ -10,14 +9,11 @@ const History = () => {
   const [selectedPictures, setSelectedPictures] = useState<any[]>([]);
   const [selectedPicture, setSelectedPicture] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const bottomBoundaryRef = useRef<HTMLDivElement>(null);
-  const [page, setPage] = useState<number>(1);
-  const [loadingMore, setLoadingMore] = useState<boolean>(false);
 
   const handleTermClick = async (term: string) => {
     try {
       const response = await fetch(
-        `https://api.unsplash.com/search/photos?page=${page}&query=${term}&client_id=ciD3qZfhxfqYHKizFKhpM81EU4HOo4czYFqX-3Vlr0Y`
+        `https://api.unsplash.com/search/photos?page=1&query=${term}&client_id=ciD3qZfhxfqYHKizFKhpM81EU4HOo4czYFqX-3Vlr0Y`
       );
       const data = await response.json();
       setSelectedPictures(data.results);
@@ -35,50 +31,6 @@ const History = () => {
     setSelectedPicture(null);
     setIsModalOpen(false);
   };
-
-  const fetchMoreData = async () => {
-    if (loadingMore) return;
-    setLoadingMore(true);
-    try {
-      const response = await fetch(
-        `https://api.unsplash.com/search/photos?page=${page}&query=${selectedPictures[0].alt_description}&client_id=ciD3qZfhxfqYHKizFKhpM81EU4HOo4czYFqX-3Vlr0Y`
-      );
-      if (!response.ok) {
-        throw new Error("Fetch error");
-      }
-      const newData = await response.json();
-      setSelectedPictures((prevData: any) => [...prevData, ...newData.results]);
-      setPage((prevPage) => prevPage + 1);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    } finally {
-      setLoadingMore(false);
-    }
-  };
-
-  useEffect(() => {
-    if (searchTerms.length > 0) {
-      handleTermClick(searchTerms[0]);
-    }
-  }, [searchTerms]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (
-        bottomBoundaryRef.current &&
-        window.innerHeight + window.scrollY >=
-          bottomBoundaryRef.current.offsetTop
-      ) {
-        fetchMoreData();
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [fetchMoreData]);
 
   return (
     <div>
@@ -109,8 +61,6 @@ const History = () => {
           </PictureContainer>
         ))}
       </div>
-      <div ref={bottomBoundaryRef}></div>
-      {loadingMore && <p>Loading...</p>}
     </div>
   );
 };
