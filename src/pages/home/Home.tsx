@@ -45,12 +45,9 @@ const Home = () => {
           throw new Error("fetch error");
         })
         .then((data) => {
-          console.log(data);
           setSearchedPictures(data.results);
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch((err) => {});
     } else {
       setSearchedPictures([]);
     }
@@ -64,7 +61,6 @@ const Home = () => {
     }
   }, [selectedPicture]);
 
-  console.log("data", data);
   console.log("searchTerms", searchTerms);
   return (
     <div>

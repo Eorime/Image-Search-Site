@@ -10,7 +10,6 @@ import {
 const PictureModal = ({ id, picture, onClose }: any) => {
   const [pictureData, setPictureData] = useState<any>({});
 
-  console.log(picture, id);
   useEffect(() => {
     fetch(`https://api.unsplash.com/photos/${picture?.id}/statistics?client_id=ciD3qZfhxfqYHKizFKhpM81EU4HOo4czYFqX-3Vlr0Y
     `)
@@ -23,8 +22,6 @@ const PictureModal = ({ id, picture, onClose }: any) => {
         setPictureData(data);
       });
   }, [picture]);
-
-  console.log(pictureData);
 
   return (
     <div id={id} className="modal">
