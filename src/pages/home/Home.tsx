@@ -26,6 +26,10 @@ const Home = () => {
     setSelectedPicture(picture);
   };
 
+  const handleCloseModal = () => {
+    setSelectedPicture(null);
+  };
+
   useEffect(() => {
     if (searchTerm) {
       fetch(
@@ -60,7 +64,11 @@ const Home = () => {
   console.log("data", data);
   return (
     <div>
-      <PictureModal id="modalWindow" picture={selectedPicture} />
+      <PictureModal
+        id="modalWindow"
+        picture={selectedPicture}
+        onClose={handleCloseModal}
+      />
       <InputWrapper>
         <Input type="text" placeholder="ძებნა" onChange={handleSearch}></Input>
       </InputWrapper>
