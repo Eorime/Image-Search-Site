@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import Header from "../../components/header/Header";
+import React, { useEffect, useState, useContext } from "react";
 import useFetch from "../../hooks/useFetch";
 import { Input, InputWrapper, Picture, PictureContainer } from "./styles";
 import PictureModal from "../../components/pictureModal/PictureModal";
+import { useSearchTerms } from "../../searchTerm";
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -11,6 +11,7 @@ const Home = () => {
     "https://api.unsplash.com/photos/?client_id=ciD3qZfhxfqYHKizFKhpM81EU4HOo4czYFqX-3Vlr0Y&page=1&per_page=20"
   );
   const [selectedPicture, setSelectedPicture] = useState<any>(null);
+  const { addSearchTerm, searchTerms } = useSearchTerms();
 
   let typingTimeout: string | number | NodeJS.Timeout | undefined;
 
@@ -18,7 +19,9 @@ const Home = () => {
     clearTimeout(typingTimeout);
 
     typingTimeout = setTimeout(() => {
-      setSearchTerm(event.target.value);
+      const searchTerm = event.target.value;
+      setSearchTerm(searchTerm);
+      addSearchTerm(searchTerm);
     }, 1500);
   };
 
@@ -62,6 +65,7 @@ const Home = () => {
   }, [selectedPicture]);
 
   console.log("data", data);
+  console.log("searchTerms", searchTerms);
   return (
     <div>
       <PictureModal

@@ -10,10 +10,9 @@ const SearchTermContext = createContext<SearchTermContextType | undefined>(
 );
 
 export const useSearchTerms = () => {
-  const [globalSearchTerms, setGlobalSearchTerms] = useState([]);
   const context = useContext(SearchTermContext);
   if (!context) {
-    throw new Error("useSearchTerms must be used within a SearchTermProvider");
+    throw new Error("Can't use useSearchTerms");
   }
   return context;
 };
