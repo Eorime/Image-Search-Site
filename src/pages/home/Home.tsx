@@ -22,6 +22,8 @@ const Home = () => {
       const searchTerm = event.target.value;
       setSearchTerm(searchTerm);
       addSearchTerm(searchTerm);
+      // Clear the selected picture when a new search term is entered
+      setSelectedPicture(null);
     }, 1500);
   };
 
@@ -53,7 +55,6 @@ const Home = () => {
     }
   }, [searchTerm]);
 
-  console.log("searchTerms", searchTerms);
   return (
     <div>
       {selectedPicture && (
