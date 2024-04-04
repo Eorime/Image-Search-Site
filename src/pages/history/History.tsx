@@ -42,7 +42,7 @@ const History = () => {
         />
       )}
       <HistoryContainer>
-        <h2>ისტორია</h2>
+        <h2>History</h2>
 
         {searchTerms.map((term, index) => (
           <HistoryItem key={index} onClick={() => handleTermClick(term)}>

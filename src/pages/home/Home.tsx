@@ -8,7 +8,7 @@ const Home = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [searchedPictures, setSearchedPictures] = useState<any>([]);
   const [data, loading, error] = useFetch(
-    "https://api.unsplash.com/photos/?client_id=ciD3qZfhxfqYHKizFKhpM81EU4HOo4czYFqX-3Vlr0Y&page=1&per_page=20"
+    "https://api.unsplash.com/photos/?client_id=ciD3qZfhxfqYHKizFKhpM81EU4HOo4czYFqX-3Vlr0Y&page=1&per_page=100"
   );
   const [selectedPicture, setSelectedPicture] = useState<any>(null);
   const { addSearchTerm, searchTerms } = useSearchTerms();
@@ -64,7 +64,7 @@ const Home = () => {
         />
       )}
       <InputWrapper>
-        <Input type="text" placeholder="ძებნა" onChange={handleSearch} />
+        <Input type="text" placeholder="Search" onChange={handleSearch} />
       </InputWrapper>
       {searchedPictures && searchedPictures.length === 0
         ? data?.map((picture: any) => (

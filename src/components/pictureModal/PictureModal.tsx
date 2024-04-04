@@ -27,7 +27,7 @@ const PictureModal = ({ id, picture, onClose }: any) => {
     <div id={id} className="modal">
       <ModalContainer>
         <ModalCloseButton className="close" onClick={onClose}>
-          დახურვა
+          Close
         </ModalCloseButton>
         {picture && (
           <ModalImageContainer>

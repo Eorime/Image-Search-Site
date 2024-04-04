@@ -5,10 +5,10 @@ function Navbar() {
   return (
     <NavbarWrapper>
       <StyledLink to={routes.home}>
-        <NavbarHome>მთავარი</NavbarHome>
+        <NavbarHome>Home</NavbarHome>
       </StyledLink>
       <StyledLink to={routes.history}>
-        <NavbarHistory>ისტორია</NavbarHistory>
+        <NavbarHistory>History</NavbarHistory>
       </StyledLink>
     </NavbarWrapper>
   );
